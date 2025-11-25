@@ -1,13 +1,14 @@
 package io.micronaut.data.jdbc.oraclexe
 
 import groovy.transform.Memoized
+import io.micronaut.data.annotation.Id
+import io.micronaut.data.annotation.MappedEntity
 import io.micronaut.data.annotation.Query
 import io.micronaut.data.annotation.QueryResult
 import io.micronaut.data.jdbc.annotation.JdbcRepository
 import io.micronaut.data.model.JsonDataType
 import io.micronaut.data.model.query.builder.sql.Dialect
 import io.micronaut.data.repository.CrudRepository
-import io.micronaut.data.tck.entities.JsonData
 import io.micronaut.data.tck.entities.JsonEntity
 import io.micronaut.data.tck.entities.SampleData
 import io.micronaut.data.tck.repositories.JsonEntityRepository
@@ -98,6 +99,15 @@ class OracleXEJSONSpec extends AbstractJSONSpec implements OracleTestPropertyPro
         cleanup:
         jsonEntityRepository.deleteAll()
     }
+}
+
+@MappedEntity
+class JsonData {
+    @Id
+    Long id
+    String name
+    LocalDateTime createdDate
+    Duration duration
 }
 
 @JdbcRepository(dialect = Dialect.ORACLE)
